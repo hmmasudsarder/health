@@ -5,6 +5,8 @@ import Header from "../../SharedComponents/Header/Header";
 import { useLoaderData } from "react-router-dom";
 import Cart from "../Cart/Cart";
 import Footer from "../Footer/Footer";
+import ExtraPage from "../ExtaraPage/ExtraPage";
+import ExtraShort from "../ExtaraPage/ExtraShort";
 
 const Home = () => {
 const healths = useLoaderData();
@@ -19,6 +21,8 @@ console.log(healths)
                 healths.map(health => <Cart key={health.id} health={health}></Cart>)
             }
         </div>
+        <ExtraPage></ExtraPage>
+        <ExtraShort></ExtraShort>
         <Footer></Footer>
       </div>
     </div>

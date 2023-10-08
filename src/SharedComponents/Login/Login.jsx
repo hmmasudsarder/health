@@ -1,25 +1,34 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../Header/Navbar";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import swal from "sweetalert";
 
 const Login = () => {
-
+    const [success, setSuccess] = useState('');
+    const [error, setError] = useState('');
+    const location = useLocation();
+    const navigate = useNavigate()
     const {userLogin, googleLogin} = useContext(AuthContext)
     const handleLogin = (e) => {
         const form = new FormData(e.currentTarget);
         const email = form.get('email');
         const password = form.get('password');
+        console.log(email, password)
         userLogin(email, password)
+        // console.log(userLogin)
         .then(res => {
-            swal("Good job!", "You clicked the button!", "success",res.user)})
-        .catch(error => swal("error!", "You clicked the button!", "success", error.message))
+          console.log(res.user)
+          navigate(location?.state ? location.state : '/')
+        })
+        .catch(error => (error.message))
     }
     const handleWithGool = () => {
         googleLogin()
-        .then(res => console.log(res.user))
-        .catch(error => console.log(error.message))
+        .then(res => {
+          navigate(location?.state ? location.state : '/')
+          setSuccess(res.user)})
+        .catch(error => {setError(error.message)})
     }
 
   return (
@@ -45,6 +54,7 @@ const Login = () => {
                   required
                 />
               </div>
+              
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Password</span>
@@ -73,6 +83,12 @@ const Login = () => {
               </Link>{" "}
             </a>
             <button onClick={handleWithGool} className="btn btn-outline btn-success">Google</button>
+            {/* {
+                success && swal("Good job!", "You clicked the button!", "success")
+            }
+            {
+              error && swal("error!", "You clicked the button!", "error")
+            } */}
           </div>
         </div>
       </div>

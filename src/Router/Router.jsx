@@ -4,6 +4,8 @@ import Root from "../Components/Root";
 import Cart from "../Pages/Cart/Cart";
 import Login from "../SharedComponents/Login/Login";
 import Register from "../SharedComponents/Register/Register";
+import ServiceDetails from "../Pages/ServiceDetails/ServiceDetails";
+import PrivateRoute from "./PrivateRoute";
 
 
 
@@ -18,8 +20,12 @@ const Router = createBrowserRouter([
                 loader: () => fetch('/health.json')
             },
             {
-                path: '/cart',
-                element:<Cart></Cart>,
+                path: '/health/:id',
+                element:<PrivateRoute><ServiceDetails></ServiceDetails></PrivateRoute>
+            },
+            {
+                path: '/services',
+                element:<PrivateRoute><ServiceDetails></ServiceDetails></PrivateRoute>,
             },
             {
                 path: '/login',

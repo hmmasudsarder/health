@@ -5,14 +5,14 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBsCFufW8hGaM6EqL8t3QWa1bpQMiymnAY",
-  authDomain: "sm-health-foundataion.firebaseapp.com",
-  projectId: "sm-health-foundataion",
-  storageBucket: "sm-health-foundataion.appspot.com",
-  messagingSenderId: "628308409674",
-  appId: "1:628308409674:web:73f922ed41b11acea6d5b3"
+  apiKey: import.meta.env.VITE_APIKEY,
+  authDomain: import.meta.env.VITE_AUTHDOMAIN,
+  projectId: import.meta.env.VITE_PROJECTID,
+  storageBucket: import.meta.env.VITE_STORAGEBUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGINGSENDERID,
+  appId: import.meta.env.VITE_APPID,
 };
 
-// Initialize Firebase
+
 const app = initializeApp(firebaseConfig);
 export default app;

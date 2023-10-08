@@ -1,20 +1,28 @@
 
 import { Link } from "react-router-dom";
 import Navbar from "../Header/Navbar";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
+import swal from "sweetalert";
 
 const Register = () => {
-    const {createUser} = useContext(AuthContext)
+    const {createUser, googleLogin} = useContext(AuthContext);
+    const [success, setSuccess] = useState('');
+    const [error, setError] = useState('');
     const handleRegister = (e) => {
         e.preventDefault();
-        
+        setSuccess('')
         const form = new FormData(e.currentTarget);
         const email = form.get('email');
         const password = form.get('password');
         createUser(email, password)
+        .then(res => setSuccess(res.user))
+        .catch(error => setError(error.message))
+    }
+    const handleWithGool = () => {
+        googleLogin()
         .then(res => console.log(res.user))
-        .catch(error => console.log(error.message))
+        .catch(error => setError(error.message))
     }
   return (
     <div>
@@ -78,6 +86,13 @@ const Register = () => {
                   Login
                 </Link>
               </a>
+              <button onClick={handleWithGool} className="btn btn-outline btn-success">Google</button>
+              {
+                success && swal("Good job!", "You clicked the button!", "success")
+              }
+              {
+                error && swal("error!", "You clicked the button!", "success")
+              }
             </div>
           </div>
         </div>

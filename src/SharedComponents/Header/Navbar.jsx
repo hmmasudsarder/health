@@ -1,15 +1,35 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import userDefaultPic from '../../assets/image/user.png';
+import { useContext } from "react";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const Navbar = () => {
-    const navLinks = <>
-        <li className="font-semibold uppercase"><NavLink to='/'>Home</NavLink></li>
-        <li className="font-semibold uppercase"><NavLink to='/about'>about</NavLink></li>
-        <li className="font-semibold uppercase"><NavLink to='/contact'>contact</NavLink></li>
-        <li className="font-semibold uppercase"><NavLink to='/login'>login</NavLink></li>
-        <li className="font-semibold uppercase"><NavLink to='/register'>Register</NavLink></li>
-        
-        </>
-    
+  const {user, userLogOut} = useContext(AuthContext);
+  const navLinks = (
+    <>
+      <li className="font-semibold uppercase">
+        <NavLink to="/">Home</NavLink>
+      </li>
+      <li className="font-semibold uppercase">
+        <NavLink to="/services">Service Details</NavLink>
+      </li>
+      <li className="font-semibold uppercase">
+        <NavLink to="/contact">contact</NavLink>
+      </li>
+      <li className="font-semibold uppercase">
+        <NavLink to="/login">login</NavLink>
+      </li>
+      <li className="font-semibold uppercase">
+        <NavLink to="/register">Register</NavLink>
+      </li>
+    </>
+  );
+  const handleSignOut = () => {
+    userLogOut()
+    .then()
+    .catch()
+  }
+
   return (
     <div>
       <div className="navbar bg-base-100">
@@ -35,18 +55,22 @@ const Navbar = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
-             {navLinks}
+              {navLinks}
             </ul>
           </div>
           <a className="normal-case text-xl">SM Health</a>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
-           {navLinks}
-          </ul>
+          <ul className="menu menu-horizontal px-1">{navLinks}</ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Button</a>
+          <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+            <div className="w-10 rounded-full">
+              <img src={userDefaultPic} />
+            </div>
+          </label>
+          {user ? <button onClick={handleSignOut} className="btn">Sign Out</button> : <Link to='/login'><button>Login</button></Link>}
+          
         </div>
       </div>
     </div>
