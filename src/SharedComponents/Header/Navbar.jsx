@@ -17,6 +17,9 @@ const Navbar = () => {
         <NavLink to="/contact">contact</NavLink>
       </li>
       <li className="font-semibold uppercase">
+        <NavLink to="/special">Why Our</NavLink>
+      </li>
+      <li className="font-semibold uppercase">
         <NavLink to="/login">login</NavLink>
       </li>
       <li className="font-semibold uppercase">

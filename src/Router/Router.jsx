@@ -7,6 +7,7 @@ import ServiceDetails from "../Pages/ServiceDetails/ServiceDetails";
 import PrivateRoute from "./PrivateRoute";
 import Error from "../Pages/Error/Error";
 import Contact from "../Pages/Contact/Contact";
+import Spicial from "../Pages/Spicial/Spicial";
 
 
 
@@ -26,9 +27,14 @@ const Router = createBrowserRouter([
                 element:<PrivateRoute><ServiceDetails></ServiceDetails></PrivateRoute>,
                 loader: () => fetch('/health.json')
             },
+            
             {
                 path: '/contact',
                 element: <PrivateRoute><Contact></Contact></PrivateRoute>,
+            },
+            {
+                path: '/special',
+                element: <PrivateRoute><Spicial></Spicial></PrivateRoute>,
             },
             {
                 path: '/login',
