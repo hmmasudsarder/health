@@ -6,10 +6,10 @@ import { Dna } from "react-loader-spinner";
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
   const location  = useLocation()
-  console.log(location)
+ 
   if (loading) {
     return (
-      <div className="h-sereen flex justify-center items-center">
+      <div className="h-screen flex justify-center items-center">
         <Dna
           visible={true}
           height="380"

@@ -1,7 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import {  GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut,  } from "firebase/auth";
 import app from "../Firebase/Firebase.confige";
-import swal from "sweetalert";
 
 
 export const AuthContext = createContext(null);
@@ -11,10 +10,12 @@ const AuthProvider = ({children}) => {
     const [loading, setLoading] = useState(true);
     const provider = new GoogleAuthProvider();
     const userLogin = (email, password) => {
+        
         setLoading(true)
         return signInWithEmailAndPassword(auth, email, password)
      }
      const createUser = (email, password) => {
+        
         setLoading(true)
         return createUserWithEmailAndPassword(auth, email, password)
      }
@@ -45,7 +46,7 @@ const AuthProvider = ({children}) => {
         userLogOut,
         loading
     }
-    // console.log(userLogin)
+    // console.log(createUser)
     
     return (
         <AuthContext.Provider value={authInfo}>

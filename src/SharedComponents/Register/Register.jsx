@@ -1,28 +1,43 @@
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../Header/Navbar";
-import { useContext, useState } from "react";
+import { useContext, useState,  } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import swal from "sweetalert";
 
 const Register = () => {
     const {createUser, googleLogin} = useContext(AuthContext);
-    const [success, setSuccess] = useState('');
-    const [error, setError] = useState('');
+    const [pError, setError] = useState('')
+    const navigate = useNavigate();
+
     const handleRegister = (e) => {
         e.preventDefault();
-        setSuccess('')
         const form = new FormData(e.currentTarget);
         const email = form.get('email');
         const password = form.get('password');
+        setError('');
+        if(!/[A-Z]/.test(password)){
+            setError('Your Password Should have at least one Uppercase characters')
+            return
+        }else if(!/[#$?@&!*^-]/.test(password)){
+          setError('Your Password Should have at least one special characters')
+          return
+        }
         createUser(email, password)
-        .then(res => setSuccess(res.user))
-        .catch(error => setError(error.message))
+        .then(res => {
+          navigate('/')
+          swal("Good job!", "You Register SuccessFully!", "success")
+
+        })
+        .catch(error => {
+          setError(error.message)
+          swal("error!", "Try Again Please!", "error")
+        })
     }
     const handleWithGool = () => {
         googleLogin()
         .then(res => console.log(res.user))
-        .catch(error => setError(error.message))
+        .catch(error => {setError(error.message)})
     }
   return (
     <div>
@@ -80,6 +95,7 @@ const Register = () => {
                   <button className="btn btn-info text-white">Register</button>
                 </div>
               </form>
+
               <a href="">
                 You Are Now?{" "}
                 <Link to="/login" className="text-green-600 font-bold">
@@ -87,12 +103,10 @@ const Register = () => {
                 </Link>
               </a>
               <button onClick={handleWithGool} className="btn btn-outline btn-success">Google</button>
+              
               {
-                success && swal("Good job!", "You clicked the button!", "success")
-              }
-              {
-                error && swal("error!", "You clicked the button!", "success")
-              }
+                pError && <p className="text-red-700 font-bold">{pError}</p>
+              } 
             </div>
           </div>
         </div>

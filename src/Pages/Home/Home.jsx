@@ -10,13 +10,12 @@ import ExtraShort from "../ExtaraPage/ExtraShort";
 
 const Home = () => {
 const healths = useLoaderData();
-console.log(healths)
   return (
     <div className="">
-      <div>
+      <div >
         <Navbar></Navbar>
         <Header></Header>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" data-aos="flip-right">
             {
                 healths.map(health => <Cart key={health.id} health={health}></Cart>)
             }
